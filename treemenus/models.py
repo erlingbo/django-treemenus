@@ -96,7 +96,11 @@ class MenuItem(models.Model):
         return self.siblings().count() > 0
     
     def children(self):
-        _children = MenuItem.objects.filter(parent=self).order_by('rank',)
+        try:
+            _children = MenuItem.objects.select_related(settings
+            .TREEMENUS_EXTENSION_RELATED_NAME).filter(parent=self).order_by('rank',)
+        except AttributeError:
+            _children = MenuItem.objects.filter(parent=self).order_by('rank',)
         for child in _children:
             child.parent = self # Hack to avoid unnecessary DB queries further down the track.
         return _children
