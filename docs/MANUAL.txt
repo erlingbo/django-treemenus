@@ -331,6 +331,12 @@ the following command from the root of your project::
 
     python manage.py syncdb
 
+To limit the numbers of SQL queries to the database django-treemenus can automaticly select
+the related extensions when the menu items are fetched. For this to be possible you have to
+add the relation name to TREEMENUS_EXTENSION_RELATED_NAME in your settings.py:
+
+    TREEMENUS_EXTENSION_RELATED_NAME = 'extension'
+
 Now, you need to specify a form to let you edit those extra attributes from the admin interface.
 In your project's ``admin.py`` or your extension menu app's ``admin.py``, add the following::
 
